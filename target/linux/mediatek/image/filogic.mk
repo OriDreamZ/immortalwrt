@@ -1891,6 +1891,25 @@ define Device/h3c_magic-nx30-pro
 endef
 TARGET_DEVICES += h3c_magic-nx30-pro
 
+define Device/h3c_magic-nx30-pro-112m
+  DEVICE_VENDOR := H3C
+  DEVICE_MODEL := Magic NX30 Pro
+  DEVICE_VARIANT := (112M UBI layout)
+  DEVICE_DTS := mt7981b-h3c-magic-nx30-pro-112m
+  DEVICE_DTS_DIR := ../dts
+  SUPPORTED_DEVICES += h3c,magic-nx30-pro-112m h3c,nx30pro
+  UBINIZE_OPTS := -E 5
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  KERNEL_IN_UBI := 1
+  IMAGE_SIZE := 114688k
+  IMAGES += factory.bin
+  IMAGE/factory.bin := append-ubi | check-size $$$$(IMAGE_SIZE)
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  DEVICE_PACKAGES := kmod-mt7915e kmod-mt7981-firmware mt7981-wo-firmware
+endef
+TARGET_DEVICES += h3c_magic-nx30-pro-112m
+
 define Device/hiveton_h5000m
   DEVICE_VENDOR := Hiveton
   DEVICE_MODEL := H5000M
